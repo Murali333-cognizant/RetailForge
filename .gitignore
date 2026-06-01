@@ -1,0 +1,14 @@
+# Build artifacts
+*.o
+*.obj
+*.exe
+
+# Binaries
+retailforge
+
+# Logs and backups
+*.log
+backup.dat
+
+# OS artifacts
+.DS_Store

@@ -1,0 +1,7 @@
+productID,name,category,supplierID,currentStock,reorderLevel,unitPrice,expiryDate,shelfLifeDays,batchNumber,warrantyMonths,totalSold
+P002,Parle-G Biscuit 200g,Snacks,SUP002,100,100,7,10,,0,0,0,4210
+P003,Head & Shoulders Shampoo,Personal Care,SUP003,67,20,100,145,,0,0,0,567
+P004,Fortune Sunflower Oil 1L,Oil & Ghee,SUP001,134,30,130,185,,0,0,0,890
+P006,Samsung Charger,Accessories,SUP005,23,10,350,450,,0,0,0,145
+P007,Surf Excel Detergent,Household,SUP002,156,40,60,85,,0,0,0,432
+P010,vivo 1811,smart phone,S010,1,5,1000,1500,09-06-2026,8,0,0,4

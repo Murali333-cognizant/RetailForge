@@ -1,0 +1,421 @@
+#!/bin/bash
+
+# RetailForge - USAGE EXAMPLES & QUICK START GUIDE
+
+cat << 'EOF'
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║              RETAILFORGE - QUICK START & USAGE EXAMPLES                    ║
+║                                                                            ║
+║                          C++98 Inventory System                            ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GETTING STARTED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. COMPILE THE PROJECT:
+
+   $ cd /workspaces/project_1
+   $ make clean && make
+   
+   Output: Creates executable "retailforge" (166 KB)
+
+2. RUN THE APPLICATION:
+
+   $ ./retailforge
+   
+   The application will:
+   ✓ Load existing data from CSV files
+   ✓ Display the main menu
+   ✓ Wait for user input
+
+3. EXIT THE APPLICATION:
+
+   Main Menu → Option 0 (Exit)
+   
+   The application will:
+   ✓ Save all changes to data files
+   ✓ Clean up memory
+   ✓ Display thank you message
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MENU STRUCTURE & NAVIGATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MAIN MENU:
+├─ 1. Product Management
+├─ 2. Supplier Management
+├─ 3. Sales & Purchases
+├─ 4. Reports & Analytics
+├─ 5. Forecasting & Alerts
+├─ 6. System Backup/Restore
+└─ 0. Exit
+
+Each submenu has its own options (numbered 0-8 or 0-7)
+Entering 0 returns to the previous menu level
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DETAILED USAGE EXAMPLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EXAMPLE 1: ADD A NEW PRODUCT
+─────────────────────────────
+
+Main Menu → 1 (Product Management)
+           → 1 (Add New Product)
+
+Prompts and responses:
+  Is this product perishable? (y/n): y
+  Product ID: P008
+  Product Name: Basmati Rice 2kg
+  Category: Grocery
+  Supplier ID: SUP001
+  Current Stock: 150
+  Reorder Level: 30
+  Unit Price: 350.00
+  Expiry Date (DD-MM-YYYY): 31-12-2026
+  Shelf Life (days): 365
+
+✓ Product added to inventory and saved to products.csv
+
+EXAMPLE 2: VIEW ALL PRODUCTS
+─────────────────────────────
+
+Main Menu → 1 (Product Management)
+           → 2 (View All Products)
+
+Displays table with:
+  ID | Name | Category | Stock | Price | Type
+  
+Shows all 8 products (including new one from Example 1)
+
+EXAMPLE 3: SEARCH PRODUCT BY ID
+────────────────────────────────
+
+Main Menu → 1 (Product Management)
+           → 3 (Search Product by ID)
+
+Prompt: Enter Product ID: P001
+
+Output shows detailed information:
+  --- Product Information ---
+  ID: P001
+  Name: Amul Milk 500ml
+  Category: Grocery
+  Supplier ID: SUP001
+  Current Stock: 245
+  Reorder Level: 50
+  Unit Price: Rs. 28
+  Total Sold: 1245
+  Type: Perishable
+  Expiry Date: 20-04-2026
+
+EXAMPLE 4: RECORD A SALE
+────────────────────────
+
+Main Menu → 3 (Sales & Purchases)
+           → 1 (Record a Sale)
+
+Prompts and responses:
+  Enter Product ID: P001
+  
+  (System shows):
+    Current stock: 245
+    Unit price: Rs. 28.00
+  
+  Quantity sold: 15
+  Apply custom price? (y/n): n
+
+✓ Sale recorded:
+  - Stock updated: 245 → 230
+  - Transaction T006 logged
+  - Files saved automatically
+
+EXAMPLE 5: GENERATE ALERTS
+──────────────────────────
+
+Main Menu → 5 (Forecasting & Alerts)
+           → 5 (Generate All Alerts)
+
+System checks:
+  ✓ All products for stock below reorder level
+  ✓ All perishable products for expiry within 3 days
+  ✓ Creates queue of alerts
+
+Example output:
+  PENDING ALERTS:
+  1. LOW STOCK ALERT: P007 - Surf Excel Detergent (Current: 156)
+  2. EXPIRY ALERT: P001 - Amul Milk expires soon!
+
+EXAMPLE 6: PREDICT DEMAND
+─────────────────────────
+
+Main Menu → 5 (Forecasting & Alerts)
+           → 3 (Predict Demand)
+
+Prompts and responses:
+  Enter Product ID: P001
+  Days ahead to predict: 7
+
+Output:
+  Predicted demand for next 7 days: 112 units
+
+(Based on moving average and trend analysis)
+
+EXAMPLE 7: CALCULATE MOVING AVERAGE
+────────────────────────────────────
+
+Main Menu → 5 (Forecasting & Alerts)
+           → 2 (Calculate Moving Average)
+
+Prompts and responses:
+  Enter Product ID: P002
+  Number of days: 30
+
+Output:
+  Simple Moving Average (30 days): 114.00 units/day
+
+EXAMPLE 8: VIEW BEST-SELLING PRODUCTS
+──────────────────────────────────────
+
+Main Menu → 4 (Reports & Analytics)
+           → 3 (Top 20 Best-Selling Products)
+
+Displays table:
+  Product ID | Name | Category | Units Sold
+  ───────────┼──────┼──────────┼──────────
+  P002 | Parle-G Biscuit | Snacks | 3420
+  P001 | Amul Milk | Grocery | 1245
+  ... (sorted by sales volume)
+
+EXAMPLE 9: VIEW LOW STOCK ITEMS
+───────────────────────────────
+
+Main Menu → 4 (Reports & Analytics)
+           → 1 (Low Stock Items)
+
+Displays:
+  Product ID | Name | Current | Reorder Level
+  ───────────┼──────┼─────────┼──────────────
+  P007 | Surf Excel | 156 | 40
+  P003 | Shampoo | 67 | 20
+
+EXAMPLE 10: CREATE BACKUP
+─────────────────────────
+
+Main Menu → 6 (System Backup/Restore)
+           → 1 (Create Backup)
+
+✓ System creates backup.dat with all current data
+✓ Message: "Backup created successfully at: ./backup.dat"
+
+EXAMPLE 11: VIEW SYSTEM DASHBOARD
+─────────────────────────────────
+
+Main Menu → 4 (Reports & Analytics)
+           → 7 (System Dashboard)
+
+Displays:
+  Total Products: 8
+  Total Suppliers: 5
+  Total Sales Transactions: 6
+  Total Revenue: Rs. 4881.00
+  Total Inventory Value: Rs. 245,500.00
+  Pending Alerts: 2
+
+EXAMPLE 12: FILTER PRODUCTS BY STOCK
+─────────────────────────────────────
+
+Main Menu → 1 (Product Management)
+           → 8 (Filter by Stock Level)
+
+Prompts and responses:
+  Enter minimum stock: 50
+  Enter maximum stock: 200
+
+Output:
+  Products with stock between 50 and 200:
+    P001 - Amul Milk (Stock: 230)  [Note: Shows items in range]
+    P003 - Shampoo (Stock: 67)
+    ...
+
+EXAMPLE 13: UPDATE PRODUCT DETAILS
+───────────────────────────────────
+
+Main Menu → 1 (Product Management)
+           → 5 (Update Product)
+
+Prompts:
+  Enter Product ID to update: P001
+  
+  (Shows current info)
+  
+  Enter new Stock: 200
+  Enter new Reorder Level: 45
+  Enter new Unit Price: 29.50
+
+✓ Product updated and saved
+
+EXAMPLE 14: ADD NEW SUPPLIER
+────────────────────────────
+
+Main Menu → 2 (Supplier Management)
+           → 1 (Add New Supplier)
+
+Prompts and responses:
+  Supplier ID: SUP006
+  Supplier Name: Fresh Farms
+  Contact Number: 9876543212
+  Lead Time (days): 2
+  Reliability Score (0.0-1.0): 0.90
+
+✓ Supplier added and saved
+
+EXAMPLE 15: VIEW CATEGORY-WISE PROFIT
+──────────────────────────────────────
+
+Main Menu → 4 (Reports & Analytics)
+           → 5 (Category-wise Profit & Loss)
+
+Output shows P&L by category:
+  Category | Profit/Loss
+  ──────────┼────────────
+  Grocery | Rs. 5420.00
+  Snacks | Rs. 3200.00
+  Household | Rs. 1500.00
+  ...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DATA FILE REFERENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PRODUCTS.CSV - One row per product
+  Columns: productID, name, category, supplierID, currentStock, reorderLevel,
+           unitPrice, expiryDate, shelfLifeDays, batchNumber, warrantyMonths, totalSold
+  
+  Example row:
+    P001,Amul Milk 500ml,Grocery,SUP001,230,50,28.00,20-04-2026,7,,0,1245
+
+SUPPLIERS.CSV - One row per supplier
+  Columns: supplierID, name, contact, leadTimeDays, reliabilityScore
+  
+  Example row:
+    SUP001,Amul Dairy,9876543210,2,0.95
+
+SALES.LOG - Append-only transaction log
+  Columns: transactionID, productID, quantity, salePrice, totalAmount, date, type
+  
+  Example row:
+    T006,P001,15,28.00,420.00,15-04-2026,Sale
+
+TRANSACTIONS.CSV - Historical records
+  Same format as sales.log for archival purposes
+
+FORECAST.CSV - Historical demand for predictions
+  Columns: productID, monthYear, actualDemand, predictedDemand
+  
+  Example row:
+    P001,2025-03,1245,1180
+
+BACKUP.DAT - Binary backup file
+  Created by system backup function
+  Can be restored with Restore function
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMMON WORKFLOWS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WORKFLOW 1: DAILY INVENTORY CHECK
+─────────────────────────────────
+1. Launch application
+2. Menu 4 → Option 1 (Low Stock Items)
+3. Menu 5 → Option 5 (Generate Alerts)
+4. Menu 5 → Option 1 (View Pending Alerts)
+5. Review and take action
+6. Exit (saves all data)
+
+WORKFLOW 2: SALES ENTRY
+──────────────────────
+1. Launch application
+2. Menu 3 → Option 1 (Record a Sale)
+3. Enter product ID and quantity
+4. System updates stock automatically
+5. Repeat for multiple sales
+6. Menu 3 → Option 3 (View Sales History)
+7. Exit
+
+WORKFLOW 3: DEMAND FORECASTING
+──────────────────────────────
+1. Launch application
+2. Menu 5 → Option 2 (Calculate Moving Average) - for baseline
+3. Menu 5 → Option 3 (Predict Demand) - for next period
+4. Menu 5 → Option 4 (Suggest Reorder Quantity) - for ordering
+5. Take action on predictions
+6. Exit
+
+WORKFLOW 4: FINANCIAL REPORTING
+───────────────────────────────
+1. Launch application
+2. Menu 4 → Option 3 (Top 20 Best-Sellers)
+3. Menu 4 → Option 5 (Category P&L)
+4. Menu 4 → Option 7 (Dashboard)
+5. Export/document results
+6. Exit
+
+WORKFLOW 5: SYSTEM MAINTENANCE
+──────────────────────────────
+1. Launch application
+2. Menu 6 → Option 1 (Create Backup)
+3. Verify backup file created
+4. Document backup timestamp
+5. Exit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TIPS & BEST PRACTICES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ PRODUCT IDs:      Use consistent format (e.g., P001, P002)
+✓ SUPPLIER IDs:     Use consistent format (e.g., SUP001, SUP002)
+✓ PRICES:           Enter with decimals (e.g., 28.00, not 28)
+✓ DATES:            Use DD-MM-YYYY format (e.g., 20-04-2026)
+✓ STOCK LEVELS:     Keep reorder level at 15-20% of typical stock
+✓ BACKUP:           Create backup weekly or after major changes
+✓ CATEGORIES:       Keep consistent spelling for filters
+✓ FORECASTS:        Run weekly to detect trends
+✓ ALERTS:           Check daily for critical items
+
+COMMON ISSUES & SOLUTIONS:
+──────────────────────────
+
+Issue: "Product not found"
+→ Check product ID spelling (case-sensitive)
+→ Verify product exists with option 2 (View All Products)
+
+Issue: "Insufficient stock for sale"
+→ Check current stock before recording sale
+→ Generate reorder suggestions first
+
+Issue: "File not found" on startup
+→ Run executable from /workspaces/project_1 directory
+→ Ensure CSV files exist in same directory
+
+Issue: "Invalid input"
+→ Re-enter as prompted (numeric fields need numbers)
+→ Dates must be in DD-MM-YYYY format
+
+Issue: Data not saved
+→ Application auto-saves after each operation
+→ Use Menu 0 (Exit) to ensure graceful shutdown
+→ Check file permissions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For complete documentation, see README.md
+For technical details, see IMPLEMENTATION_GUIDE.sh
+
+Happy inventory management!
+
+════════════════════════════════════════════════════════════════════════════════
+EOF
