@@ -657,10 +657,16 @@ void InventoryManager::displayAlerts() {
     std::cout << "\n=== PENDING ALERTS ===\n";
     int count = 1;
     
-    // We can't iterate through queue directly, so we process them
     std::queue<std::string> temp = pendingAlerts;
     while (!temp.empty()) {
-        std::cout << count++ << ". " << temp.front() << "\n";
+        std::string alert = temp.front();
+        std::string prefix = "[ ] ";
+        if (alert.find("LOW STOCK") != std::string::npos) {
+            prefix = "[!] ";
+        } else if (alert.find("EXPIRY") != std::string::npos) {
+            prefix = "[⚠] ";
+        }
+        std::cout << count++ << ". " << prefix << alert << "\n";
         temp.pop();
     }
 }
@@ -738,25 +744,21 @@ void InventoryManager::displayAllProducts() const {
         return;
     }
     
-    std::cout << "\n===== ALL PRODUCTS =====\n";
-    std::cout << std::left << std::setw(10) << "ID"
-              << std::setw(25) << "Name"
-              << std::setw(15) << "Category"
-              << std::setw(10) << "Stock"
-              << std::setw(10) << "Price"
-              << std::setw(8) << "Type\n";
-    std::cout << std::string(78, '-') << "\n";
+    std::cout << "\n+------------+---------------------------+-----------------+------------+------------+----------+\n";
+    std::cout << "| Product ID | Name                      | Category        | Stock      | Price      | Type     |\n";
+    std::cout << "+------------+---------------------------+-----------------+------------+------------+----------+\n";
     
     for (std::map<std::string, Product*>::const_iterator it = products.begin();
          it != products.end(); ++it) {
         Product* prod = it->second;
-        std::cout << std::left << std::setw(10) << prod->getProductID()
-                  << std::setw(25) << prod->getName()
-                  << std::setw(15) << prod->getCategory()
-                  << std::setw(10) << prod->getCurrentStock()
-                  << std::setw(10) << prod->getUnitPrice()
-                  << std::setw(8) << prod->getType() << "\n";
+        std::cout << "| " << std::left << std::setw(10) << prod->getProductID()
+                  << " | " << std::setw(25) << prod->getName()
+                  << " | " << std::setw(15) << prod->getCategory()
+                  << " | " << std::setw(10) << prod->getCurrentStock()
+                  << " | " << std::setw(10) << std::fixed << std::setprecision(2) << prod->getUnitPrice()
+                  << " | " << std::setw(8) << prod->getType() << " |\n";
     }
+    std::cout << "+------------+---------------------------+-----------------+------------+------------+----------+\n";
 }
 
 void InventoryManager::displayAllSuppliers() const {
@@ -765,23 +767,21 @@ void InventoryManager::displayAllSuppliers() const {
         return;
     }
     
-    std::cout << "\n===== ALL SUPPLIERS =====\n";
-    std::cout << std::left << std::setw(12) << "ID"
-              << std::setw(20) << "Name"
-              << std::setw(15) << "Contact"
-              << std::setw(10) << "Lead Time"
-              << std::setw(12) << "Reliability\n";
-    std::cout << std::string(69, '-') << "\n";
+    std::cout << "\n+--------------+----------------------+-----------------+------------+--------------+\n";
+    std::cout << "| Supplier ID  | Name                 | Contact         | Lead Time  | Reliability  |\n";
+    std::cout << "+--------------+----------------------+-----------------+------------+--------------+\n";
     
     for (std::map<std::string, Supplier*>::const_iterator it = suppliers.begin();
          it != suppliers.end(); ++it) {
         Supplier* supp = it->second;
-        std::cout << std::left << std::setw(12) << supp->getSupplierID()
-                  << std::setw(20) << supp->getName()
-                  << std::setw(15) << supp->getContact()
-                  << std::setw(10) << supp->getLeadTimeDays()
-                  << std::setw(12) << supp->getReliabilityScore() << "\n";
+        std::cout << "| " << std::left << std::setw(12) << supp->getSupplierID()
+                  << " | " << std::setw(20) << supp->getName()
+                  << " | " << std::setw(15) << supp->getContact()
+                  << " | " << std::setw(10) << supp->getLeadTimeDays()
+                  << " | " << std::setw(12) << std::fixed << std::setprecision(2) << supp->getReliabilityScore()
+                  << " |\n";
     }
+    std::cout << "+--------------+----------------------+-----------------+------------+--------------+\n";
 }
 
 void InventoryManager::displaySalesHistory(int limit) const {
@@ -790,25 +790,20 @@ void InventoryManager::displaySalesHistory(int limit) const {
         return;
     }
     
-    std::cout << "\n===== SALES HISTORY (Last " << limit << " transactions) =====\n";
-    std::cout << std::left << std::setw(12) << "Trans ID"
-              << std::setw(12) << "Product ID"
-              << std::setw(10) << "Qty"
-              << std::setw(10) << "Price"
-              << std::setw(12) << "Amount"
-              << std::setw(15) << "Date"
-              << std::setw(10) << "Type\n";
-    std::cout << std::string(79, '-') << "\n";
+    std::cout << "\n+--------------+------------+----------+----------+------------+-----------------+----------+\n";
+    std::cout << "| Trans ID     | Product ID | Qty      | Price    | Amount     | Date            | Type     |\n";
+    std::cout << "+--------------+------------+----------+----------+------------+-----------------+----------+\n";
     
     int start = (salesHistory.size() > (size_t)limit) ? (salesHistory.size() - limit) : 0;
     for (size_t i = start; i < salesHistory.size(); ++i) {
         const SalesTransaction& trans = salesHistory[i];
-        std::cout << std::left << std::setw(12) << trans.getTransactionID()
-                  << std::setw(12) << trans.getProductID()
-                  << std::setw(10) << trans.getQuantity()
-                  << std::setw(10) << std::fixed << std::setprecision(2) << trans.getSalePrice()
-                  << std::setw(12) << trans.getTotalAmount()
-                  << std::setw(15) << trans.getTransactionDate()
-                  << std::setw(10) << trans.getTransactionType() << "\n";
+        std::cout << "| " << std::left << std::setw(12) << trans.getTransactionID()
+                  << " | " << std::setw(10) << trans.getProductID()
+                  << " | " << std::setw(8) << trans.getQuantity()
+                  << " | " << std::setw(8) << std::fixed << std::setprecision(2) << trans.getSalePrice()
+                  << " | " << std::setw(10) << trans.getTotalAmount()
+                  << " | " << std::setw(15) << trans.getTransactionDate()
+                  << " | " << std::setw(8) << trans.getTransactionType() << " |\n";
     }
+    std::cout << "+--------------+------------+----------+----------+------------+-----------------+----------+\n";
 }
